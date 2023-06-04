@@ -1,0 +1,28 @@
+# Download the data
+data:
+	mkdir -p src/data
+	cd src/data; \
+	wget "https://github.com/ds5110/rdata/blob/main/data/mydb.sqlite"
+
+q1:
+	python -B src/q1.py
+
+q1Under3000:
+	python -B src/q1Under3000.py
+
+q2:
+	python -B src/q2.py
+
+q3:
+	python -B src/q3.py
+
+DB_NAME = FLIGHTS
+SQL_FILE_JOIN = q4_JOIN.sql
+SQL_FILE_WHERE = q4_WHERE.sql
+
+.PHONY: run_sql
+
+run_sql:
+	psql -d $(DB_NAME) -f $(SQL_FILE_JOIN)
+	psql -d $(DB_NAME) -f $(SQL_FILE_WHERE)
+
